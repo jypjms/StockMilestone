@@ -8,7 +8,6 @@ public class StockMilestoneApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(StockMilestoneApplication.class, args);
-
 	}
 
 }
