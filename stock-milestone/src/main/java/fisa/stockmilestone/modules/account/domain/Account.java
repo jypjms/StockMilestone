@@ -1,5 +1,6 @@
 package fisa.stockmilestone.modules.account.domain;
 
+import fisa.stockmilestone.modules.board.domain.Comment;
 import fisa.stockmilestone.modules.board.domain.Post;
 import lombok.Getter;
 
@@ -28,4 +29,10 @@ public class Account {
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<Post> posts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    private List<Bookmark> bookmarks = new ArrayList<>();
 }

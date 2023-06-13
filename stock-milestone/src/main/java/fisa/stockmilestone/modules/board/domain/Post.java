@@ -1,10 +1,15 @@
 package fisa.stockmilestone.modules.board.domain;
 
 import fisa.stockmilestone.modules.account.domain.Account;
+import lombok.Getter;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Getter
 public class Post {
     @Id @GeneratedValue
     private Long id;
@@ -18,4 +23,7 @@ public class Post {
     private PostStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<PostImg> postImgs = new ArrayList<>();
 }

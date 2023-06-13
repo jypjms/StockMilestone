@@ -1,10 +1,13 @@
 package fisa.stockmilestone.modules.account.domain;
 
 import fisa.stockmilestone.modules.board.domain.Post;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Getter
 public class UserLikePost {
 
     @Id
