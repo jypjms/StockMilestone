@@ -1,6 +1,9 @@
 package fisa.stockmilestone.modules.board.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +13,9 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class PostImg {
     @Id
     @GeneratedValue

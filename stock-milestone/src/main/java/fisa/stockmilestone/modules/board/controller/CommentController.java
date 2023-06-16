@@ -1,12 +1,10 @@
 package fisa.stockmilestone.modules.board.controller;
 
-import fisa.stockmilestone.modules.board.dto.GetCommentsRes;
+import fisa.stockmilestone.modules.board.dto.GetCommentRes;
+import fisa.stockmilestone.modules.board.dto.PostCommentReq;
 import fisa.stockmilestone.modules.board.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,8 +19,13 @@ public class CommentController {
     }
 
     @GetMapping({"/posts/{postId}/comments"})
-    public List<GetCommentsRes> getAllComments(@PathVariable Long postId){
-        List<GetCommentsRes> getCommentRes = commentService.getAllComments(postId);
+    public List<GetCommentRes> getAllComments(@PathVariable Long postId){
+        List<GetCommentRes> getCommentRes = commentService.getAllComments(postId);
         return getCommentRes;
+    }
+
+    @PostMapping("/posts/{postId}/newcomment")
+    public void postNewComment(@PathVariable Long postId, @RequestBody PostCommentReq postCommentReq){
+        commentService.postNewComment(postId, postCommentReq);
     }
 }

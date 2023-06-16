@@ -9,7 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class GetCommentsRes {
+public class GetCommentRes {
+    private Long id;
     private String nickName;
     private String content;
 }
