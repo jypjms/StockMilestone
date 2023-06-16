@@ -1,4 +1,4 @@
-package fisa.stockmilestone.modules.board.repository;
+package fisa.stockmilestone.modules.account.repository;
 
 import fisa.stockmilestone.modules.account.domain.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
