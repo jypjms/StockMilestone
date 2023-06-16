@@ -1,7 +1,7 @@
 package fisa.stockmilestone.modules.board.domain;
 
 import fisa.stockmilestone.modules.account.domain.Account;
-import lombok.Getter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,6 +10,9 @@ import java.util.List;
 
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class Post {
     @Id @GeneratedValue
     private Long id;
