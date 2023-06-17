@@ -10,5 +10,4 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Override
     Optional<Post> findById(Long aLong);
 
-    public List<Post> findByPost(Post post);
 }

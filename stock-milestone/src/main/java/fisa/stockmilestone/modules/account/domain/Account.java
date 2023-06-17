@@ -2,7 +2,10 @@ package fisa.stockmilestone.modules.account.domain;
 
 import fisa.stockmilestone.modules.board.domain.Comment;
 import fisa.stockmilestone.modules.board.domain.Post;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,10 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
+@Getter @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Account {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nickName;
     private Integer commentNum;
