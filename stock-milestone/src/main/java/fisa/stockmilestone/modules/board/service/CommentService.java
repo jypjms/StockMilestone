@@ -5,7 +5,7 @@ import fisa.stockmilestone.modules.board.domain.Comment;
 import fisa.stockmilestone.modules.board.domain.Post;
 import fisa.stockmilestone.modules.board.dto.GetCommentRes;
 import fisa.stockmilestone.modules.board.dto.PostCommentReq;
-import fisa.stockmilestone.modules.board.repository.AccountRepository;
+import fisa.stockmilestone.modules.account.repository.AccountRepository;
 import fisa.stockmilestone.modules.board.repository.CommentRepository;
 import fisa.stockmilestone.modules.board.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
