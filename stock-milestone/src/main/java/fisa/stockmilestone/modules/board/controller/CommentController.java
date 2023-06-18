@@ -14,18 +14,18 @@ public class CommentController {
     private final CommentService commentService;
 
     @Autowired
-    public CommentController(CommentService commentService){
+    public CommentController(CommentService commentService) {
         this.commentService = commentService;
     }
 
     @GetMapping({"/posts/{postId}/comments"})
-    public List<GetCommentRes> getAllComments(@PathVariable Long postId){
+    public List<GetCommentRes> getAllComments(@PathVariable Long postId) {
         List<GetCommentRes> getCommentRes = commentService.getAllComments(postId);
         return getCommentRes;
     }
 
     @PostMapping("/posts/{postId}/newcomment")
-    public void postNewComment(@PathVariable Long postId, @RequestBody PostCommentReq postCommentReq){
+    public void postNewComment(@PathVariable Long postId, @RequestBody PostCommentReq postCommentReq) {
         commentService.postNewComment(postId, postCommentReq);
     }
 }
