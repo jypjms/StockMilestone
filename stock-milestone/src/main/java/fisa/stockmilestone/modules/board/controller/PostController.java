@@ -1,7 +1,9 @@
 package fisa.stockmilestone.modules.board.controller;
 
 import fisa.stockmilestone.modules.board.dto.GetPostRes;
+import fisa.stockmilestone.modules.board.dto.PetchPostReq;
 import fisa.stockmilestone.modules.board.dto.PostPostReq;
+import fisa.stockmilestone.modules.board.repository.PostRepository;
 import fisa.stockmilestone.modules.board.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,24 +15,45 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostController {
     private final PostService postService;
-    // /post 등록
+
+    /*
+     * 게시글(Post) 등록
+     */
     @PostMapping({"/post"})
-    public void addNewPost(@RequestBody PostPostReq postPostReq){
+    public void addNewPost(@RequestBody PostPostReq postPostReq) {
         postService.addNewPost(postPostReq);
     }
+
+    /*
+     * 게시글(Post) 전체 목록 조회
+     */
     @GetMapping({"/posts"})
-    public List<GetPostRes> getPosts(){
+    public List<GetPostRes> getPosts() {
         List<GetPostRes> postResList = postService.getAllPosts();
         return postResList;
     }
 
-    // /posts/{postId} 불러오기
+    /*
+     * 게시글(Post) 상세 조회
+     */
+    @GetMapping({"/posts/{postId}"})
+    public GetPostRes getPost(@PathVariable Long postId) {
+        return postService.getPostRes(postId);
+    }
 
-    // /posts/{postId}
+    /*
+     * 게시글(Post) 수정
+     */
+    @PatchMapping({"/posts/{postId}"})
+    public void updatePost(@RequestBody PetchPostReq petchPostReq) {
+        postService.updatePost(petchPostReq);
+    }
 
-
-    // /posts/{postId}
-
-
-
+    /*
+     * 게시글(Post) 삭제
+     */
+    @DeleteMapping({"/posts/{postId}"})
+    public void deletePost(@PathVariable Long postId) {
+        postService.deletePost(postId);
+    }
 }

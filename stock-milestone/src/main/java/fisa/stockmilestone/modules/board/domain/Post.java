@@ -29,4 +29,8 @@ public class Post {
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<PostImg> postImgs = new ArrayList<>();
+
+    public void updatePost(String content){
+        this.content = content;
+    }
 }
