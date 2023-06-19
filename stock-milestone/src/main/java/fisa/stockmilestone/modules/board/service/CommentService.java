@@ -4,12 +4,14 @@ import fisa.stockmilestone.modules.account.domain.Account;
 import fisa.stockmilestone.modules.board.domain.Comment;
 import fisa.stockmilestone.modules.board.domain.Post;
 import fisa.stockmilestone.modules.board.dto.GetCommentRes;
+import fisa.stockmilestone.modules.board.dto.PatchCommentReq;
 import fisa.stockmilestone.modules.board.dto.PostCommentReq;
 import fisa.stockmilestone.modules.account.repository.AccountRepository;
 import fisa.stockmilestone.modules.board.repository.CommentRepository;
 import fisa.stockmilestone.modules.board.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,6 +44,7 @@ public class CommentService {
         return getCommentsRes;
     }
 
+    @Transactional
     public void postNewComment(Long postId, PostCommentReq postCommentReq) {
         Post post = postRepository.findById(postId).orElseThrow(() -> {return new IllegalArgumentException("post doesn't exist");});
         Account account = accountRepository.findById(postCommentReq.getAccountId()).orElseThrow(() -> {return new IllegalArgumentException("account doesn't exist");});
@@ -49,4 +52,18 @@ public class CommentService {
                 .post(post).account(account).likeNum(0).content(postCommentReq.getContent()).build();
         commentRepository.save(comment);
     }
+
+    @Transactional
+    public void updateComment(Long commentId, PatchCommentReq patchCommentReq){
+        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> {return new IllegalArgumentException("comment doesn't exist");});
+        comment.updateComment(patchCommentReq.getContent());
+    }
+
+    @Transactional
+    public void deleteComment(Long commentId){
+        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> {return new IllegalArgumentException("comment doesn't exist");});
+        comment.deleteComment();
+    }
+
+
 }

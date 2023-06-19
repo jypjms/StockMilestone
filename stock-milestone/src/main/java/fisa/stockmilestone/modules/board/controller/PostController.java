@@ -1,9 +1,8 @@
 package fisa.stockmilestone.modules.board.controller;
 
 import fisa.stockmilestone.modules.board.dto.GetPostRes;
-import fisa.stockmilestone.modules.board.dto.PetchPostReq;
+import fisa.stockmilestone.modules.board.dto.PatchPostReq;
 import fisa.stockmilestone.modules.board.dto.PostPostReq;
-import fisa.stockmilestone.modules.board.repository.PostRepository;
 import fisa.stockmilestone.modules.board.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +44,7 @@ public class PostController {
      * 게시글(Post) 수정
      */
     @PatchMapping({"/posts/{postId}"})
-    public void updatePost(@RequestBody PetchPostReq petchPostReq) {
+    public void updatePost(@RequestBody PatchPostReq petchPostReq) {
         postService.updatePost(petchPostReq);
     }
 

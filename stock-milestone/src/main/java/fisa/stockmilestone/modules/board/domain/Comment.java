@@ -25,6 +25,14 @@ public class Comment {
     private Integer likeNum;
     private String content;
     //상태
+    @Enumerated(EnumType.STRING)
+    private CommentStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    public void updateComment(String content){
+        this.content = content;
+    }
+
+    public void deleteComment(){this.status = CommentStatus.DELETED;}
 }

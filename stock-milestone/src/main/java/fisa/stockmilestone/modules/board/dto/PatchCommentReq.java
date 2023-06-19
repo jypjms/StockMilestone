@@ -3,7 +3,6 @@ package fisa.stockmilestone.modules.board.dto;
 import lombok.*;
 
 @Data
-public class PostCommentReq {
-    private Long accountId;
+public class PatchCommentReq {
     private String content;
 }
