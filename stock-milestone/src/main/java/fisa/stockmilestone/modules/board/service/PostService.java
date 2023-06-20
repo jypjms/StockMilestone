@@ -3,20 +3,15 @@ package fisa.stockmilestone.modules.board.service;
 import fisa.stockmilestone.modules.account.domain.Account;
 import fisa.stockmilestone.modules.account.repository.AccountRepository;
 import fisa.stockmilestone.modules.board.domain.Post;
-import fisa.stockmilestone.modules.board.domain.PostImg;
 import fisa.stockmilestone.modules.board.domain.PostStatus;
-import fisa.stockmilestone.modules.board.dto.GetCommentRes;
 import fisa.stockmilestone.modules.board.dto.GetPostRes;
-import fisa.stockmilestone.modules.board.dto.PetchPostReq;
+import fisa.stockmilestone.modules.board.dto.PatchPostReq;
 import fisa.stockmilestone.modules.board.dto.PostPostReq;
 import fisa.stockmilestone.modules.board.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,9 +69,9 @@ public class PostService {
      * 게시글(Post) 수정
      */
     @Transactional
-    public void updatePost(PetchPostReq petchPostReq) {
-        Post post = postRepository.findById(petchPostReq.getId()).orElseThrow(() -> new IllegalArgumentException("account doesn't exist"));
-        post.updatePost(petchPostReq.getContent());
+    public void updatePost(PatchPostReq patchPostReq) {
+        Post post = postRepository.findById(patchPostReq.getId()).orElseThrow(() -> new IllegalArgumentException("account doesn't exist"));
+        post.updatePost(patchPostReq.getContent());
     }
 
     @Transactional

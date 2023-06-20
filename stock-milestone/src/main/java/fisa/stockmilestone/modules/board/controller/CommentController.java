@@ -1,6 +1,7 @@
 package fisa.stockmilestone.modules.board.controller;
 
 import fisa.stockmilestone.modules.board.dto.GetCommentRes;
+import fisa.stockmilestone.modules.board.dto.PatchCommentReq;
 import fisa.stockmilestone.modules.board.dto.PostCommentReq;
 import fisa.stockmilestone.modules.board.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,4 +29,16 @@ public class CommentController {
     public void postNewComment(@PathVariable Long postId, @RequestBody PostCommentReq postCommentReq) {
         commentService.postNewComment(postId, postCommentReq);
     }
+
+    @PatchMapping("/mod-comment/{commentId}")
+    public void updateComment(@PathVariable Long commentId, @RequestBody PatchCommentReq patchCommentReq){
+        commentService.updateComment(commentId, patchCommentReq);
+    }
+
+    @PatchMapping("/del-comment/{commentId}")
+    public void deleteComment(@PathVariable Long commentId){
+        commentService.deleteComment(commentId);
+    }
+
+
 }
