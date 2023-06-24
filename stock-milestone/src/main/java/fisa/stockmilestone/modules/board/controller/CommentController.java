@@ -1,5 +1,7 @@
 package fisa.stockmilestone.modules.board.controller;
 
+import fisa.stockmilestone.config.BaseException;
+import fisa.stockmilestone.config.BaseResponse;
 import fisa.stockmilestone.modules.board.dto.GetCommentRes;
 import fisa.stockmilestone.modules.board.dto.PatchCommentReq;
 import fisa.stockmilestone.modules.board.dto.PostCommentReq;
@@ -40,5 +42,9 @@ public class CommentController {
         commentService.deleteComment(commentId);
     }
 
-
+    @ExceptionHandler(BaseException.class)
+    public BaseResponse exceptionHandle(BaseException ne){
+        System.out.println(ne);
+        return new BaseResponse<>(ne.getStatus());
+    }
 }
