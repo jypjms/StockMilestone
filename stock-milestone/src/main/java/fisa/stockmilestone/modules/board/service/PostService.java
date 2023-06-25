@@ -7,6 +7,7 @@ import fisa.stockmilestone.modules.board.domain.PostStatus;
 import fisa.stockmilestone.modules.board.dto.GetPostRes;
 import fisa.stockmilestone.modules.board.dto.PatchPostReq;
 import fisa.stockmilestone.modules.board.dto.PostPostReq;
+import fisa.stockmilestone.modules.board.exception.NoSuchPostException;
 import fisa.stockmilestone.modules.board.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -55,7 +56,7 @@ public class PostService {
      * 게시글(Post) 상세 조회
      */
     public GetPostRes getPostRes(Long postId) {
-        Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("account doesn't exist"));
+        Post post = postRepository.findById(postId).orElseThrow(() -> new NoSuchPostException());
         GetPostRes getPostRes = new GetPostRes(
                 post.getId(),
                 post.getAccount().getNickName(),
@@ -70,13 +71,13 @@ public class PostService {
      */
     @Transactional
     public void updatePost(PatchPostReq patchPostReq) {
-        Post post = postRepository.findById(patchPostReq.getId()).orElseThrow(() -> new IllegalArgumentException("account doesn't exist"));
+        Post post = postRepository.findById(patchPostReq.getId()).orElseThrow(() -> new NoSuchPostException());
         post.updatePost(patchPostReq.getContent());
     }
 
     @Transactional
     public void deletePost(Long postId) {
-        Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("account doesn't exist"));
+        Post post = postRepository.findById(postId).orElseThrow(() -> new NoSuchPostException());
         postRepository.delete(post);
     }
 

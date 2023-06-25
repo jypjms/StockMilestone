@@ -1,5 +1,6 @@
-package fisa.stockmilestone.config;
+package fisa.stockmilestone.modules.global.response;
 
+import fisa.stockmilestone.modules.global.response.BaseResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
