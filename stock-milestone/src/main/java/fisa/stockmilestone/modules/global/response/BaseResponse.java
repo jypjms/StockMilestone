@@ -1,4 +1,4 @@
-package fisa.stockmilestone.config;
+package fisa.stockmilestone.modules.global.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import static fisa.stockmilestone.config.BaseResponseStatus.SUCCESS;
+import static fisa.stockmilestone.modules.global.response.BaseResponseStatus.SUCCESS;
 
 @Getter
 @AllArgsConstructor

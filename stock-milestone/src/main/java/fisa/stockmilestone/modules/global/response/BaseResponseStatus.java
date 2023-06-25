@@ -1,4 +1,4 @@
-package fisa.stockmilestone.config;
+package fisa.stockmilestone.modules.global.response;
 
 import lombok.Getter;
 
@@ -13,6 +13,7 @@ public enum BaseResponseStatus {
      * 2000 : Request 오류
      */
     REQUEST_ERROR(false, 2000, "입력값을 확인해주세요."),
+    POST_NOT_FOUND(false,2001,"게시글을 찾을 수 없습니다."),
 
     /**
      * 3000 : Response 오류

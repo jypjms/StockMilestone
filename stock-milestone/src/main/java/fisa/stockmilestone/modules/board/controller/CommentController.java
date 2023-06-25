@@ -1,7 +1,7 @@
 package fisa.stockmilestone.modules.board.controller;
 
-import fisa.stockmilestone.config.BaseException;
-import fisa.stockmilestone.config.BaseResponse;
+import fisa.stockmilestone.modules.global.response.BaseException;
+import fisa.stockmilestone.modules.global.response.BaseResponse;
 import fisa.stockmilestone.modules.board.dto.GetCommentRes;
 import fisa.stockmilestone.modules.board.dto.PatchCommentReq;
 import fisa.stockmilestone.modules.board.dto.PostCommentReq;

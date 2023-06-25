@@ -4,7 +4,9 @@ import fisa.stockmilestone.modules.board.dto.GetPostRes;
 import fisa.stockmilestone.modules.board.dto.PatchPostReq;
 import fisa.stockmilestone.modules.board.dto.PostPostReq;
 import fisa.stockmilestone.modules.board.service.PostService;
+import fisa.stockmilestone.modules.global.response.BaseResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,17 +29,18 @@ public class PostController {
      * 게시글(Post) 전체 목록 조회
      */
     @GetMapping({"/posts"})
-    public List<GetPostRes> getPosts() {
+    public ResponseEntity<BaseResponse> getPosts() {
         List<GetPostRes> postResList = postService.getAllPosts();
-        return postResList;
+        return ResponseEntity.ok(new BaseResponse<>(postResList));
     }
 
     /*
      * 게시글(Post) 상세 조회
      */
     @GetMapping({"/posts/{postId}"})
-    public GetPostRes getPost(@PathVariable Long postId) {
-        return postService.getPostRes(postId);
+    public ResponseEntity<BaseResponse> getPost(@PathVariable Long postId) {
+        GetPostRes getPostRes = postService.getPostRes(postId);
+        return ResponseEntity.ok(new BaseResponse<>(getPostRes));
     }
 
     /*
