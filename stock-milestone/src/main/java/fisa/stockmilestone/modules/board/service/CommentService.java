@@ -9,6 +9,9 @@ import fisa.stockmilestone.modules.board.dto.PostCommentReq;
 import fisa.stockmilestone.modules.account.repository.AccountRepository;
 import fisa.stockmilestone.modules.board.repository.CommentRepository;
 import fisa.stockmilestone.modules.board.repository.PostRepository;
+import fisa.stockmilestone.modules.global.response.BaseException;
+import fisa.stockmilestone.modules.global.response.BaseResponse;
+import fisa.stockmilestone.modules.global.response.BaseResponseStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static fisa.stockmilestone.modules.global.response.BaseResponseStatus.*;
 
 @Service
 public class CommentService {
@@ -31,8 +36,8 @@ public class CommentService {
         this.accountRepository = accountRepository;
     }
 
-    public List<GetCommentRes> getAllComments(Long postId){
-        Post post = postRepository.findById(postId).orElseThrow(() -> {return new IllegalArgumentException("post doesn't exist");});
+    public List<GetCommentRes> getAllComments(Long postId) throws BaseException {
+        Post post = postRepository.findById(postId).orElseThrow(() -> {return new BaseException(new BaseResponse<>(POST_NOT_FOUND));});
         List<Comment> comments = commentRepository.findByPost(post);
         Stream<Comment> stream = comments.stream();
         List<GetCommentRes> getCommentsRes = (List)stream.map((c) -> {
@@ -45,23 +50,23 @@ public class CommentService {
     }
 
     @Transactional
-    public void postNewComment(Long postId, PostCommentReq postCommentReq) {
-        Post post = postRepository.findById(postId).orElseThrow(() -> {return new IllegalArgumentException("post doesn't exist");});
-        Account account = accountRepository.findById(postCommentReq.getAccountId()).orElseThrow(() -> {return new IllegalArgumentException("account doesn't exist");});
+    public void postNewComment(Long postId, PostCommentReq postCommentReq) throws BaseException {
+        Post post = postRepository.findById(postId).orElseThrow(() -> {return new BaseException(new BaseResponse<>(POST_NOT_FOUND));});
+        Account account = accountRepository.findById(postCommentReq.getAccountId()).orElseThrow(() -> {return new BaseException(new BaseResponse<>(ACCOUNT_NOT_FOUND));});
         Comment comment = Comment.builder()
                 .post(post).account(account).likeNum(0).content(postCommentReq.getContent()).build();
         commentRepository.save(comment);
     }
 
     @Transactional
-    public void updateComment(Long commentId, PatchCommentReq patchCommentReq){
-        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> {return new IllegalArgumentException("comment doesn't exist");});
+    public void updateComment(Long commentId, PatchCommentReq patchCommentReq) throws BaseException {
+        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> {return new BaseException(new BaseResponse<>(COMMENT_NOT_FOUND));});
         comment.updateComment(patchCommentReq.getContent());
     }
 
     @Transactional
-    public void deleteComment(Long commentId){
-        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> {return new IllegalArgumentException("comment doesn't exist");});
+    public void deleteComment(Long commentId) throws BaseException {
+        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> {return new BaseException(new BaseResponse<>(COMMENT_NOT_FOUND));});
         comment.deleteComment();
     }
 
