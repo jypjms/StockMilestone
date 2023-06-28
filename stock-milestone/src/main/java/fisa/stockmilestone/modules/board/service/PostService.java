@@ -56,7 +56,7 @@ public class PostService {
      * 게시글(Post) 상세 조회
      */
     public GetPostRes getPostRes(Long postId) {
-        Post post = postRepository.findById(postId).orElseThrow(() -> new NoSuchPostException());
+        Post post = postRepository.findById(postId).orElseThrow(() -> new NoSuchPostException(postId));
         GetPostRes getPostRes = new GetPostRes(
                 post.getId(),
                 post.getAccount().getNickName(),
@@ -71,13 +71,13 @@ public class PostService {
      */
     @Transactional
     public void updatePost(PatchPostReq patchPostReq) {
-        Post post = postRepository.findById(patchPostReq.getId()).orElseThrow(() -> new NoSuchPostException());
+        Post post = postRepository.findById(patchPostReq.getId()).orElseThrow(() -> new NoSuchPostException(patchPostReq.getId()));
         post.updatePost(patchPostReq.getContent());
     }
 
     @Transactional
     public void deletePost(Long postId) {
-        Post post = postRepository.findById(postId).orElseThrow(() -> new NoSuchPostException());
+        Post post = postRepository.findById(postId).orElseThrow(() -> new NoSuchPostException(postId));
         postRepository.delete(post);
     }
 
