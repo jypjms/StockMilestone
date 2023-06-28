@@ -14,6 +14,8 @@ public enum BaseResponseStatus {
      */
     REQUEST_ERROR(false, 2000, "입력값을 확인해주세요."),
     POST_NOT_FOUND(false,2001,"게시글을 찾을 수 없습니다."),
+    COMMENT_NOT_FOUND(false, 2002, "댓글을 찾을 수 없습니다."),
+    ACCOUNT_NOT_FOUND(false, 2003, "계정을 찾을 수 없습니다"),
 
     /**
      * 3000 : Response 오류

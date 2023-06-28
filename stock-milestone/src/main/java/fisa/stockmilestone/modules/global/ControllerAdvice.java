@@ -1,6 +1,7 @@
 package fisa.stockmilestone.modules.global;
 
 import fisa.stockmilestone.modules.board.exception.NoSuchPostException;
+import fisa.stockmilestone.modules.global.response.BaseException;
 import fisa.stockmilestone.modules.global.response.BaseResponse;
 import fisa.stockmilestone.modules.global.response.BaseResponseStatus;
 import org.springframework.http.HttpStatus;
@@ -11,13 +12,17 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ControllerAdvice {
 
-    @ExceptionHandler({
-            NoSuchPostException.class
-    })
+    @ExceptionHandler({NoSuchPostException.class})
     public ResponseEntity<BaseResponse> handleNoSuchData(final RuntimeException e){
 
         BaseResponse errorResponse = new BaseResponse(BaseResponseStatus.POST_NOT_FOUND);
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+
+    @ExceptionHandler(BaseException.class)
+    public BaseResponse exceptionHandle(BaseException ne){
+        System.out.println(ne);
+        return new BaseResponse<>(ne.getStatus());
     }
 }
