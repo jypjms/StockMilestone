@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ControllerAdvice {
 
-    @ExceptionHandler({NoSuchPostException.class})
-    public ResponseEntity<ExceptionResponse> handleNoSuchData(final NoSuchPostException e){
+    @ExceptionHandler({
+            NoSuchPostException.class
+    })
+    public BaseResponse handleNoSuchData(final RuntimeException e){
 
         ExceptionResponse errorResponse = new ExceptionResponse(404, e.getMessage());
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+        return errorResponse;
     }
 
     @ExceptionHandler(BaseException.class)
