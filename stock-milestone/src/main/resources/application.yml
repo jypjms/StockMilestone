@@ -1,7 +1,8 @@
 spring:
   config:
     import:
-      db.properties
+      - db.properties
+      - auth.properties
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${DB_URL}
@@ -19,3 +20,24 @@ spring:
 
 logging.level:
   org.hibernate.SQL: debug
+
+
+security:
+  jwt:
+    token:
+      secret-key: ${SECRET_KEY}
+      access:
+        expire-length: 1800000 # 30분
+      refresh:
+        expire-length: 3600000
+
+oauth:
+  google:
+    redirect-uri: ${REDIRECT_URI}
+    client-id: ${CLIENT_ID}
+    client-secret: ${CLIENT_SECRET}
+    oauth-end-point: https://accounts.google.com/o/oauth2/v2/auth
+    response-type: code
+    scopes: ${SCOPE1}, ${SCOPE2}
+    token-uri: https://oauth2.googleapis.com/token
+    access-type: offline

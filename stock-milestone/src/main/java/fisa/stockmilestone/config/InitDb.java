@@ -29,11 +29,11 @@ public class InitDb {
         private final AccountRepository accountRepository;
 
         public void dbInit1(){
-            Account account1 = Account.builder().commentNum(0).postNum(0)
+            Account account1 = Account.builder().email("abc@abc.com").commentNum(0).postNum(0)
                     .nickName("jiny").status(UserStatus.ACTIVE).build();
             accountRepository.save(account1);
 
-            Account account2 = Account.builder().commentNum(0).postNum(0)
+            Account account2 = Account.builder().email("abc2@abc.com").commentNum(0).postNum(0)
                     .nickName("mindyo").status(UserStatus.ACTIVE).build();
             accountRepository.save(account2);
         }
