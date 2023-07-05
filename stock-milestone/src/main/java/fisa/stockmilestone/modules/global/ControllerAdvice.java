@@ -14,10 +14,10 @@ public class ControllerAdvice {
     @ExceptionHandler({
             NoSuchPostException.class
     })
-    public ResponseEntity<BaseResponse> handleNoSuchData(final RuntimeException e){
+    public BaseResponse handleNoSuchData(final RuntimeException e){
 
         BaseResponse errorResponse = new BaseResponse(BaseResponseStatus.POST_NOT_FOUND);
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+        return errorResponse;
     }
 }
