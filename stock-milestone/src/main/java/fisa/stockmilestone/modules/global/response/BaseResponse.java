@@ -27,13 +27,6 @@ public class BaseResponse<T> {
         this.result = result;
     }
 
-    // 요청에 실패한 경우
-    public BaseResponse(BaseResponseStatus status){
-        this.isSuccess = status.isSuccess();
-        this.message = status.getMessage();
-        this.code = status.getCode();
-    }
-
     // Custom Response(Message, Result)
     public BaseResponse(String message, T result){
         this.isSuccess = SUCCESS.isSuccess();

@@ -22,29 +22,25 @@ public class CommentController {
     }
 
     @GetMapping({"/posts/{postId}/comments"})
-    public List<GetCommentRes> getAllComments(@PathVariable Long postId) {
+    public BaseResponse<List<GetCommentRes>> getAllComments(@PathVariable Long postId) throws BaseException {
         List<GetCommentRes> getCommentRes = commentService.getAllComments(postId);
-        return getCommentRes;
+        return new BaseResponse<>(getCommentRes);
     }
 
     @PostMapping("/posts/{postId}/newcomment")
-    public void postNewComment(@PathVariable Long postId, @RequestBody PostCommentReq postCommentReq) {
+    public BaseResponse<PostCommentReq> postNewComment(@PathVariable Long postId, @RequestBody PostCommentReq postCommentReq) throws BaseException{
         commentService.postNewComment(postId, postCommentReq);
+        return new BaseResponse<>(postCommentReq);
     }
 
     @PatchMapping("/mod-comment/{commentId}")
-    public void updateComment(@PathVariable Long commentId, @RequestBody PatchCommentReq patchCommentReq){
+    public BaseResponse<PatchCommentReq> updateComment(@PathVariable Long commentId, @RequestBody PatchCommentReq patchCommentReq) throws BaseException{
         commentService.updateComment(commentId, patchCommentReq);
+        return new BaseResponse<>(patchCommentReq);
     }
 
     @PatchMapping("/del-comment/{commentId}")
-    public void deleteComment(@PathVariable Long commentId){
+    public void deleteComment(@PathVariable Long commentId) throws BaseException{
         commentService.deleteComment(commentId);
-    }
-
-    @ExceptionHandler(BaseException.class)
-    public BaseResponse exceptionHandle(BaseException ne){
-        System.out.println(ne);
-        return new BaseResponse<>(ne.getStatus());
     }
 }

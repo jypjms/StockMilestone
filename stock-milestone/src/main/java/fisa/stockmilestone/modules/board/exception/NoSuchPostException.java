@@ -1,11 +1,9 @@
 package fisa.stockmilestone.modules.board.exception;
 
-public class NoSuchPostException extends RuntimeException{
-    public NoSuchPostException(final String message){
-        super(message);
-    }
+import java.util.Objects;
 
-    public NoSuchPostException(){
-        this("존재하지 않는 게시글입니다.");
+public class NoSuchPostException extends RuntimeException{
+    public NoSuchPostException(final long postId){
+        super(String.format("%d번 게시글을 찾을 수 없습니다.", postId));
     }
 }
