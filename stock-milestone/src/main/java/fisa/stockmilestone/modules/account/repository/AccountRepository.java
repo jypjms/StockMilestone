@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface AccountRepository extends JpaRepository<Account, Long> {
     @Override
     Optional<Account> findById(Long aLong);
+
+    boolean existsByEmail(String email);
 }
