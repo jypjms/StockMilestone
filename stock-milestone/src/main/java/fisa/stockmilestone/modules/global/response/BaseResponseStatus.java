@@ -21,6 +21,7 @@ public enum BaseResponseStatus {
      * 3000 : Response 오류
      */
     RESPONSE_ERROR(false, 3000, "값을 불러오는데 실패하였습니다."),
+    NOT_VALID_TOKEN(false,3500,"토큰이 유효하지 않습니다."),
 
     /**
      * 4000 : Database, Server 오류
