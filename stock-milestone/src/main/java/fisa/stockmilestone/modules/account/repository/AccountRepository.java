@@ -9,5 +9,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     @Override
     Optional<Account> findById(Long aLong);
 
+    Account findByEmail(String email);
+
     boolean existsByEmail(String email);
 }

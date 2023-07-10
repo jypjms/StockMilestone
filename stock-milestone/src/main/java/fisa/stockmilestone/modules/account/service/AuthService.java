@@ -1,37 +1,52 @@
 package fisa.stockmilestone.modules.account.service;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import fisa.stockmilestone.infra.oauth.client.GoogleOAuthClient;
+import fisa.stockmilestone.infra.oauth.endpoint.GoogleOAuthEndPoint;
+import fisa.stockmilestone.infra.oauth.support.JwtProvider;
+import fisa.stockmilestone.modules.account.domain.Account;
+import fisa.stockmilestone.modules.account.domain.SocialType;
+import fisa.stockmilestone.modules.account.dto.OAuthAccount;
+import fisa.stockmilestone.modules.account.dto.TokenResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@ConfigurationProperties(prefix = "oauth.google")
+@Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class AuthService {
-    private static final String GOOGLE_OAUTH_END_POINT = "https://accounts.google.com/o/oauth2/v2/auth";
 
-    private final String googleRedirectUri;
-    private final String googleClientId;
-    private final String googleClientSecret;
-    private final List<String> scopes;
-
-    public AuthService(@Value("${oauth.google.redirect-uri}") final String googleRedirectUri,
-                       @Value("${oauth.google.client-id}") final String googleClientId,
-                       @Value("${oauth.google.client-secret}") final String googleClientSecret,
-                       @Value("${oauth.google.scopes}") final List<String> scopes) {
-        this.googleRedirectUri = googleRedirectUri;
-        this.googleClientId = googleClientId;
-        this.googleClientSecret = googleClientSecret;
-        this.scopes = scopes;
-    }
+    private final GoogleOAuthEndPoint oAuthEndpoint;
+    private final GoogleOAuthClient oAuthClient;
+    private final AccountService memberService;
+    private final JwtProvider jwtProvider;
 
     public String generateGoogleLink() {
-        return GOOGLE_OAUTH_END_POINT + "?"
-                + "client_id=" + googleClientId + "&"
-                + "redirect_uri=" + googleRedirectUri + "&"
-                + "response_type=code&"
-                + "scope="+ scopes.get(0) +" "+ scopes.get(1);
-                //+ "scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email";
+        return oAuthEndpoint.generate();
+    }
+
+    @Transactional
+    public TokenResponse generateTokenWithCode(final String code) {
+        OAuthAccount oAuthAccount = oAuthClient.getOAuthMember(code);
+        String email = oAuthAccount.getEmail();
+
+        signUpAccountIfNotExists(oAuthAccount, email);
+
+        Account foundAccount = memberService.findByEmail(email);
+        String accessToken = jwtProvider.createToken(String.valueOf(foundAccount.getId()));
+
+        return new TokenResponse(accessToken);
+    }
+
+    private void signUpAccountIfNotExists(final OAuthAccount oAuthAccount, final String email) {
+        if (!memberService.existsByEmail(email)) {
+            memberService.save(generateMemberBy(oAuthAccount));
+        }
+    }
+
+    private Account generateMemberBy(final OAuthAccount oAuthAccount) {
+        return Account.createAccount(oAuthAccount.getEmail(),oAuthAccount.getNickName(), SocialType.GOOGLE);
     }
 }
