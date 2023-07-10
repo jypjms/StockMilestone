@@ -10,11 +10,13 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Date;
 
 @Component
 public class JwtProvider {
 
+    private static final String JWT_DELIMITER = "\\.";
     private final SecretKey key;
     private final long validTimeInMilliseconds;
 
@@ -49,5 +51,13 @@ public class JwtProvider {
         } catch (JwtException | IllegalArgumentException e) {
             throw new BaseException(new ExceptionResponse(BaseResponseStatus.NOT_VALID_TOKEN));
         }
+    }
+
+    public String getPayloadFrom(final String jwt) {
+        return jwt.split(JWT_DELIMITER)[1];
+    }
+
+    public String decodePayload(final String payload) {
+        return new String(Base64.getUrlDecoder().decode(payload), StandardCharsets.UTF_8);
     }
 }
