@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class PatchPostReq {
-    private Long id;
-    private String content;
+    private final Long id;
+    private final String content;
 }

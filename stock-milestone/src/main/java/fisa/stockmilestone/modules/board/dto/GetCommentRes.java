@@ -2,12 +2,9 @@ package fisa.stockmilestone.modules.board.dto;
 
 import lombok.*;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@RequiredArgsConstructor
+@Data
 public class GetCommentRes {
-    private Long id;
-    private String nickName;
-    private String content;
+    private final Long id;
+    private final String nickName;
+    private final String content;
 }
