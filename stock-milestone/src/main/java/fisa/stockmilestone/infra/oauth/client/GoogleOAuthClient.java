@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -18,20 +19,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RequiredArgsConstructor
+@Component
 public class GoogleOAuthClient {
     private static final String JWT_DELIMITER = "\\.";
 
-    @Value("${oauth.google.redirect_uri}")
-    private final String googleRedirectUri;
+    @Value("${oauth.google.redirect-uri}")
+    private String googleRedirectUri;
 
-    @Value("${oauth.google.client_id}")
-    private final String googleClientId;
+    @Value("${oauth.google.client-id}")
+    private String googleClientId;
 
-    @Value("${oauth.google.client_secret}")
-    private final String googleClientSecret;
+    @Value("${oauth.google.client-secret}")
+    private String googleClientSecret;
 
-    @Value("${oauth.google.token_uri}")
-    private final String googleTokenUri;
+    @Value("${oauth.google.token-uri}")
+    private String googleTokenUri;
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;

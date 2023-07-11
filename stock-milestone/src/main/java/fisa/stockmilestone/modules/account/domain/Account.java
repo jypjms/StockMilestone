@@ -22,7 +22,7 @@ public class Account {
     private Long id;
     @Column(nullable = false)
     private String email;
-    @Column(nullable = false)
+
     private String nickName;
     private Integer commentNum;
     private Integer postNum;

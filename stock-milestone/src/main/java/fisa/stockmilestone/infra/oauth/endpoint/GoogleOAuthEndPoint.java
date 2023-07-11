@@ -12,8 +12,8 @@ public class GoogleOAuthEndPoint {
     private final String googleClientId;
     private final List<String> scopes;
 
-    public GoogleOAuthEndPoint(@Value("${oauth.google.redirect_uri}") final String googleRedirectUri,
-                               @Value("${oauth.google.client_id}") final String googleClientId,
+    public GoogleOAuthEndPoint(@Value("${oauth.google.redirect-uri}") final String googleRedirectUri,
+                               @Value("${oauth.google.client-id}") final String googleClientId,
                                @Value("${oauth.google.scopes}") final List<String> scopes) {
         this.googleRedirectUri = googleRedirectUri;
         this.googleClientId = googleClientId;
