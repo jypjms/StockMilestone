@@ -59,4 +59,10 @@ public class Account {
                 .status(UserStatus.ACTIVE).build();
         return account;
     }
+
+    @OneToMany(mappedBy = "following", cascade = CascadeType.ALL)
+    private List<Follow> followings = new ArrayList<>();
+
+    @OneToMany(mappedBy = "followed", cascade = CascadeType.ALL)
+    private List<Follow> followeds = new ArrayList<>();
 }
