@@ -4,5 +4,5 @@ import lombok.*;
 
 @Data
 public class PatchCommentReq {
-    private String content;
+    private final String content;
 }

@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class PostPostReq {
-    private String content;
+    private final String content;
 }
