@@ -17,9 +17,7 @@ public class ControllerAdvice {
             NoSuchPostException.class
     })
     public BaseResponse handleNoSuchData(final RuntimeException e){
-
         BaseResponse errorResponse = new BaseResponse(BaseResponseStatus.POST_NOT_FOUND);
-
         return errorResponse;
     }
 

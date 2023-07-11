@@ -8,6 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class BaseException extends Exception{
+public class BaseException extends RuntimeException{
     private ExceptionResponse status;
 }

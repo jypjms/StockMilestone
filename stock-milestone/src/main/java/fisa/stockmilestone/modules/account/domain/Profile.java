@@ -11,7 +11,7 @@ public class Profile {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(mappedBy = "profile")
     private Account account;
     private String imgUrl;
     private LocalDateTime createdAt;

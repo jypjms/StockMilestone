@@ -20,14 +20,24 @@ public class Account {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
+    private String email;
+
     private String nickName;
     private Integer commentNum;
     private Integer postNum;
 
     @Enumerated(EnumType.STRING)
     private UserStatus status;
+
+    @Enumerated(EnumType.STRING)
+    private SocialType socialType;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    @OneToOne
+    private Profile profile;
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<UserLikePost> likePosts = new ArrayList<>();
@@ -40,6 +50,15 @@ public class Account {
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<Bookmark> bookmarks = new ArrayList<>();
+
+    public static Account createAccount(String email, String nickName, SocialType socialType){
+        Account account = Account.builder()
+                .email(email)
+                .nickName(nickName)
+                .socialType(socialType)
+                .status(UserStatus.ACTIVE).build();
+        return account;
+    }
 
     @OneToMany(mappedBy = "following", cascade = CascadeType.ALL)
     private List<Follow> followings = new ArrayList<>();
