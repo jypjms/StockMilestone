@@ -1,8 +1,7 @@
 package fisa.stockmilestone.infra.oauth.support;
 
-import fisa.stockmilestone.modules.global.response.BaseException;
-import fisa.stockmilestone.modules.global.response.BaseResponseStatus;
-import fisa.stockmilestone.modules.global.response.ExceptionResponse;
+import fisa.stockmilestone.modules.global.exception.CustomException;
+import fisa.stockmilestone.modules.global.response.ResponseStatusCode;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,10 +45,10 @@ public class JwtProvider {
                     .parseClaimsJws(token);
 
             if(!claims.getBody().getExpiration().before(new Date())){
-                throw new BaseException(new ExceptionResponse(BaseResponseStatus.NOT_VALID_TOKEN));
+                throw new CustomException(new ExceptionResponse(ResponseStatusCode.NOT_VALID_TOKEN));
             }
         } catch (JwtException | IllegalArgumentException e) {
-            throw new BaseException(new ExceptionResponse(BaseResponseStatus.NOT_VALID_TOKEN));
+            throw new CustomException(new ExceptionResponse(ResponseStatusCode.NOT_VALID_TOKEN));
         }
     }
 
