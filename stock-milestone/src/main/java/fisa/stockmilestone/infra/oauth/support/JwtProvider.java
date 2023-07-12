@@ -45,10 +45,10 @@ public class JwtProvider {
                     .parseClaimsJws(token);
 
             if(!claims.getBody().getExpiration().before(new Date())){
-                throw new CustomException(new ExceptionResponse(ResponseStatusCode.NOT_VALID_TOKEN));
+                throw new CustomException(ResponseStatusCode.NOT_VALID_TOKEN);
             }
         } catch (JwtException | IllegalArgumentException e) {
-            throw new CustomException(new ExceptionResponse(ResponseStatusCode.NOT_VALID_TOKEN));
+            throw new CustomException(ResponseStatusCode.NOT_VALID_TOKEN);
         }
     }
 

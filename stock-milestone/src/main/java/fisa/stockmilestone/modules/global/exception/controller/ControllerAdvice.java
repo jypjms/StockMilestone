@@ -11,7 +11,7 @@ public class ControllerAdvice {
 
     @ExceptionHandler(CustomException.class)
     public BaseResponse<ResponseStatusCode> exceptionHandle(CustomException ex){
-        ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getStatus());
-        return exceptionResponse;
+        BaseResponse exResponse = new BaseResponse(ex.getStatus());
+        return exResponse;
     }
 }

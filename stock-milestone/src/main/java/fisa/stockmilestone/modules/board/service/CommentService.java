@@ -10,6 +10,7 @@ import fisa.stockmilestone.modules.account.repository.AccountRepository;
 import fisa.stockmilestone.modules.board.repository.CommentRepository;
 import fisa.stockmilestone.modules.board.repository.PostRepository;
 import fisa.stockmilestone.modules.global.exception.CustomException;
+import fisa.stockmilestone.modules.global.response.ResponseStatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +36,7 @@ public class CommentService {
     }
 
     public List<GetCommentRes> getAllComments(Long postId) throws CustomException {
-        Post post = postRepository.findById(postId).orElseThrow(() -> new CustomException(new ExceptionResponse(POST_NOT_FOUND)));
+        Post post = postRepository.findById(postId).orElseThrow(() -> new CustomException(POST_NOT_FOUND));
         List<Comment> comments = commentRepository.findByPost(post);
         Stream<Comment> stream = comments.stream();
         List<GetCommentRes> getCommentsRes = (List) stream.map((c) -> {
@@ -50,10 +51,10 @@ public class CommentService {
     @Transactional
     public void postNewComment(Long postId, PostCommentReq postCommentReq) throws CustomException {
         Post post = postRepository.findById(postId).orElseThrow(() -> {
-            return new CustomException(new ExceptionResponse(POST_NOT_FOUND));
+            return new CustomException(POST_NOT_FOUND);
         });
         Account account = accountRepository.findById(postCommentReq.getAccountId()).orElseThrow(() -> {
-            return new CustomException(new ExceptionResponse(ACCOUNT_NOT_FOUND));
+            return new CustomException(ACCOUNT_NOT_FOUND);
         });
         Comment comment = Comment.builder()
                 .post(post).account(account).likeNum(0).content(postCommentReq.getContent()).build();
@@ -63,7 +64,7 @@ public class CommentService {
     @Transactional
     public void updateComment(Long commentId, PatchCommentReq patchCommentReq) throws CustomException {
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> {
-            return new CustomException(new ExceptionResponse(COMMENT_NOT_FOUND));
+            return new CustomException(COMMENT_NOT_FOUND);
         });
         comment.updateComment(patchCommentReq.getContent());
     }
@@ -71,7 +72,7 @@ public class CommentService {
     @Transactional
     public void deleteComment(Long commentId) throws CustomException {
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> {
-            return new CustomException(new ExceptionResponse(COMMENT_NOT_FOUND));
+            return new CustomException(COMMENT_NOT_FOUND);
         });
         comment.deleteComment();
     }

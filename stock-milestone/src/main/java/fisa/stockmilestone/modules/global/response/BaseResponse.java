@@ -29,4 +29,10 @@ public class BaseResponse<T> {
         this.result = result;
     }
 
+    public BaseResponse(ResponseStatusCode statusCode){
+        this.isSuccess = statusCode.isSuccess();
+        this.message = statusCode.getMessage();
+        this.code = statusCode.getCode();
+    }
+
 }

@@ -29,18 +29,18 @@ public class PostController {
      * 게시글(Post) 전체 목록 조회
      */
     @GetMapping({"/posts"})
-    public ResponseEntity<BaseResponse> getPosts() {
+    public BaseResponse<List<GetPostRes>> getPosts() {
         List<GetPostRes> postResList = postService.getAllPosts();
-        return ResponseEntity.ok(new BaseResponse<>(postResList));
+        return new BaseResponse<>(postResList);
     }
 
     /*
      * 게시글(Post) 상세 조회
      */
     @GetMapping({"/posts/{postId}"})
-    public ResponseEntity<BaseResponse> getPost(@PathVariable Long postId) {
+    public BaseResponse<GetPostRes> getPost(@PathVariable Long postId) {
         GetPostRes getPostRes = postService.getPostRes(postId);
-        return ResponseEntity.ok(new BaseResponse<>(getPostRes));
+        return new BaseResponse<>(getPostRes);
     }
 
     /*
