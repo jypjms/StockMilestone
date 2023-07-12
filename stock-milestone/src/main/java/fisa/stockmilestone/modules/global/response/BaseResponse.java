@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import static fisa.stockmilestone.modules.global.response.BaseResponseStatus.SUCCESS;
+import static fisa.stockmilestone.modules.global.response.ResponseStatusCode.SUCCESS;
 
 @Getter
 @AllArgsConstructor
@@ -29,11 +29,10 @@ public class BaseResponse<T> {
         this.result = result;
     }
 
-    // Custom Response(Message, Result)
-    public BaseResponse(String message, T result){
-        this.isSuccess = SUCCESS.isSuccess();
-        this.code = SUCCESS.getCode();
-        this.message = message;
-        this.result = result;
+    public BaseResponse(ResponseStatusCode statusCode){
+        this.isSuccess = statusCode.isSuccess();
+        this.message = statusCode.getMessage();
+        this.code = statusCode.getCode();
     }
+
 }
