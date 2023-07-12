@@ -28,19 +28,19 @@ public class CommentController {
     }
 
     @PostMapping("/posts/{postId}/newcomment")
-    public BaseResponse<PostCommentReq> postNewComment(@PathVariable Long postId, @RequestBody PostCommentReq postCommentReq) throws CustomException {
+    public BaseResponse<PostCommentReq> postNewComment(@PathVariable Long postId, @RequestBody PostCommentReq postCommentReq) throws CustomException{
         commentService.postNewComment(postId, postCommentReq);
         return new BaseResponse<>(postCommentReq);
     }
 
     @PatchMapping("/mod-comment/{commentId}")
-    public BaseResponse<PatchCommentReq> updateComment(@PathVariable Long commentId, @RequestBody PatchCommentReq patchCommentReq) throws CustomException {
+    public BaseResponse<PatchCommentReq> updateComment(@PathVariable Long commentId, @RequestBody PatchCommentReq patchCommentReq) throws CustomException{
         commentService.updateComment(commentId, patchCommentReq);
         return new BaseResponse<>(patchCommentReq);
     }
 
     @PatchMapping("/del-comment/{commentId}")
-    public void deleteComment(@PathVariable Long commentId) throws CustomException {
+    public void deleteComment(@PathVariable Long commentId) throws CustomException{
         commentService.deleteComment(commentId);
     }
 }

@@ -2,7 +2,11 @@ package fisa.stockmilestone.modules.board.dto;
 
 import lombok.*;
 
-@Data
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class PatchCommentReq {
-    private final String content;
+
+    private String content;
+
 }

@@ -2,6 +2,9 @@ package fisa.stockmilestone.modules.board.domain;
 
 import fisa.stockmilestone.modules.account.domain.Account;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,6 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Comment {
 
     @Id
@@ -27,7 +31,9 @@ public class Comment {
     //상태
     @Enumerated(EnumType.STRING)
     private CommentStatus status;
+    @CreatedDate
     private LocalDateTime createdAt;
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
     public void updateComment(String content){
@@ -35,4 +41,5 @@ public class Comment {
     }
 
     public void deleteComment(){this.status = CommentStatus.DELETED;}
+
 }
