@@ -1,9 +1,14 @@
 package fisa.stockmilestone.modules.account.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Data
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class PostFollowReq {
-    private final Long followingId;
-    private final Long followedId;
+    private Long followingId;
+    private Long followedId;
 }

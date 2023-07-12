@@ -2,8 +2,10 @@ package fisa.stockmilestone.modules.board.dto;
 
 import lombok.*;
 
-@Data
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class PostCommentReq {
-    private final Long accountId;
-    private final String content;
+    private Long accountId;
+    private String content;
 }
