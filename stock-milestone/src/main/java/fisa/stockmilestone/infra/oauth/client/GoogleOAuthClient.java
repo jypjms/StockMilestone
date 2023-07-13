@@ -6,6 +6,7 @@ import fisa.stockmilestone.infra.oauth.dto.GoogleTokenResponse;
 import fisa.stockmilestone.infra.oauth.support.JwtProvider;
 import fisa.stockmilestone.modules.account.dto.OAuthAccount;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -20,6 +21,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @Component
+@Slf4j
 public class GoogleOAuthClient {
     private static final String JWT_DELIMITER = "\\.";
 
@@ -76,6 +78,7 @@ public class GoogleOAuthClient {
         String email = userInfo.get("email");
         String nickName = userInfo.get("name");
 
+        log.info("return OAuthAccount"+email+" "+nickName);
         return new OAuthAccount(email, nickName);
     }
 }

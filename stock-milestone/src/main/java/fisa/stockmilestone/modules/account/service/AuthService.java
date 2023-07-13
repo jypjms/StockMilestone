@@ -8,6 +8,7 @@ import fisa.stockmilestone.modules.account.domain.SocialType;
 import fisa.stockmilestone.modules.account.dto.OAuthAccount;
 import fisa.stockmilestone.modules.account.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Slf4j
 public class AuthService {
 
     private final GoogleOAuthEndPoint oAuthEndpoint;
@@ -37,6 +39,7 @@ public class AuthService {
         Account foundAccount = memberService.findByEmail(email);
         String accessToken = jwtProvider.createToken(String.valueOf(foundAccount.getId()));
 
+        log.info("AuthService - return AccessToken "+accessToken);
         return new TokenResponse(accessToken);
     }
 
