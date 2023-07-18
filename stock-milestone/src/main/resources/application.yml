@@ -3,6 +3,7 @@ spring:
     import:
       - db.properties
       - auth.properties
+      - aws.properties
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${DB_URL}
@@ -41,3 +42,15 @@ oauth:
     scopes: ${SCOPE1}, ${SCOPE2}
     token-uri: https://oauth2.googleapis.com/token
     access-type: offline
+
+cloud:
+  aws:
+    s3:
+      bucket: ${AWS_BUCKET}
+    credentials:
+      accessKey: ${AWS_ACCESSKEY}
+      secretKey: ${AWS_SECRETKEY}
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
