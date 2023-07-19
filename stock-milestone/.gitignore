@@ -1,5 +1,6 @@
 ../stock-milestone/HELP.md
 .gradle
+gradle/
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
@@ -37,4 +38,6 @@ out/
 .vscode/
 
 ## resource ###
-*.properties
+auth.properties
+aws.properties
+db.properties
